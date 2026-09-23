@@ -4,6 +4,8 @@ Radar privado de inversión de Ramón, servido en [ramonruizherrero.com/apps/fin
 
 ## Incluye
 
+- Tema claro, oscuro o según el sistema, con preferencia guardada en este navegador. Selector disponible tanto en el acceso como en el panel.
+
 - Universo seleccionado de 26 índices y empresas de EE. UU. y Europa, filtros y seguimiento privado.
 - Precios e históricos indicativos de Yahoo Finance; variaciones de 21, 63 y 252 sesiones, media de 200 sesiones y volumen relativo.
 - Índices oficiales de declaraciones PTR de la Cámara de Representantes del año actual y anterior; búsqueda por declarante. Lectura parcial de los PDF con identificación del cónyuge y de opciones cuando figura en el documento.
