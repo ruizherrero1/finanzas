@@ -120,7 +120,7 @@ export const getQuote = unstable_cache(
       ...instrument,
       ...m,
       price: result.meta.regularMarketPrice,
-      currency: result.meta.currency,
+      currency: instrument.region === "Índice" ? "puntos" : result.meta.currency,
       asOf: new Date(result.meta.regularMarketTime * 1000).toISOString(),
       history: history.slice(-253),
       source: `https://finance.yahoo.com/quote/${encodeURIComponent(instrument.symbol)}/`,
