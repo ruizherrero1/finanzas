@@ -1,6 +1,7 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { ThemeControl, useFinanceTheme } from "./ThemeControl";
 import type { Session } from "@supabase/supabase-js";
 import {
   Activity,
@@ -106,7 +107,11 @@ function Chart({ quote, large = false }: { quote: Quote; large?: boolean }) {
       <polyline
         points={line}
         fill="none"
-        stroke={values.at(-1)! >= values[0] ? "#24725d" : "#b44d46"}
+        stroke={
+          values.at(-1)! >= values[0]
+            ? "var(--fl-chart-up)"
+            : "var(--fl-chart-down)"
+        }
         strokeWidth={large ? 2.6 : 1.8}
         vectorEffect="non-scaling-stroke"
       />
@@ -118,7 +123,7 @@ function Chart({ quote, large = false }: { quote: Quote; large?: boolean }) {
             x2={w}
             y1={8 + n * (h - 16)}
             y2={8 + n * (h - 16)}
-            stroke="#dfe4e2"
+            stroke="var(--fl-line)"
             strokeDasharray="3 5"
           />
         ))}
@@ -198,6 +203,7 @@ function Trades({ trades, limit = 40 }: { trades: Trade[]; limit?: number }) {
   );
 }
 export default function FinanceApp() {
+  const theme = useFinanceTheme();
   const [session, setSession] = useState<Session | null>(null),
     [ready, setReady] = useState(
       !process.env.NEXT_PUBLIC_SUPABASE_URL ||
@@ -496,14 +502,14 @@ export default function FinanceApp() {
   }, [selected, ideaOpen]);
   if (!ready)
     return (
-      <div className="finance-shell fl-center">
+      <div className="finance-shell fl-center" data-theme={theme}>
         <div className="fl-loader" />
         <p>Comprobando tu sesión…</p>
       </div>
     );
   if (!session)
     return (
-      <div className="finance-shell fl-login">
+      <div className="finance-shell fl-login" data-theme={theme}>
         <section className="fl-login-story">
           <a href="/apps" className="fl-brand">
             <ChartNoAxesCombined /> Finance<span>Lab</span>
@@ -540,6 +546,9 @@ export default function FinanceApp() {
           </small>
         </section>
         <section className="fl-login-form">
+          <div className="fl-login-tools">
+            <ThemeControl theme={theme} />
+          </div>
           <div className="fl-lock">
             <LockKeyhole />
           </div>
@@ -597,7 +606,7 @@ export default function FinanceApp() {
       </div>
     );
   return (
-    <div className="finance-shell fl-app">
+    <div className="finance-shell fl-app" data-theme={theme}>
       <aside className="fl-sidebar">
         <a href="/apps" className="fl-brand">
           <ChartNoAxesCombined /> Finance<span>Lab</span>
@@ -645,6 +654,7 @@ export default function FinanceApp() {
             </span>
           </div>
           <div>
+            <ThemeControl theme={theme} />
             <span className="fl-today">{date(new Date().toISOString())}</span>
             <button
               className="fl-icon-button"
